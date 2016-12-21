@@ -1,4 +1,4 @@
-FROM sebp/elk
+FROM sebp/elk:es500_l500_k500
 
 ENV ES_HOME /opt/elasticsearch
 WORKDIR ${ES_HOME}
