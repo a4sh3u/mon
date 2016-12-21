@@ -11,10 +11,10 @@ ADD ./elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 
 ENV ES_HOME /usr/share/elasticsearch
 WORKDIR ${ES_HOME}
-RUN bin/elasticsearch-plugin install -Edefault.path.conf=/etc/elasticsearch x-pack
+RUN bin/elasticsearch-plugin install x-pack
 
 WORKDIR ${KIBANA_HOME}
-RUN gosu kibana bin/kibana-plugin install x-pack
+RUN bin/kibana-plugin install x-pack
 
 ADD ./start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
