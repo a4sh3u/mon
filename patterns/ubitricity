@@ -1,0 +1,46 @@
+#
+# Patterns for ubitricity log files
+#
+
+CLASSNAME [a-zA-Z0-9_\.]+
+UUID [a-zA-Z0-9\-]+
+CN [a-z0-9\-]+
+OU [a-z0-9\-]+
+O [a-z0-9\-]+
+SN [0-9]+
+ENUM [A-Z_]+
+
+# ERPA
+REST_SERVICE [a-zA-z_]+
+
+# BAM
+BAM_DTO_RECEPTION_STATE (ONTIME|LATE|CROSSPERIOD)
+
+#
+# most of these regexes are taken from the protocol spec types
+#
+
+# MMP: message header fields
+MT ([a-zA-Z]+)(\:\d{2}$)?
+SSO_ID [s][a-z]{3}[0-9a-f]{2}[0-9]{8}
+MM_ID [i][a-z]{3}[0-9a-f]{2}[0-9]{8}
+
+# MMP: identification of a charging session
+COUNTER [0-9]+
+AUTH_DIGEST [a-z\.\-]*mcc[a-z\.\-]*\.(ubitricity|mobile-metering)\.com-(Online|Offline)-[A-Fa-f0-9]{64}
+
+# MMP: CDR reporting
+CDR_REPORT_TYPE (INTERIM_REPORT|FINAL_REPORT)
+TERMINATION_STATUS (ONGOING|DENIED|ABORTED|COMPLETED)
+METER_STATUS (MISSING|DEFECTIVE|PRELIMINARY|REPLACEMENT|TRUE_VALUE)
+SER_UPDATE_CAUSE (START_CHARGING|CONTINUE_CHARGING|STOP_CHARGING|STOP_AND_REAUTHORIZE)
+ELECTRICITY [0-9]+
+
+# MMP: MCCNotOK messages
+MCC_NOT_OK_CODE (WONT_TELL|MM_UPDATE_REQUIRED|SSO_UPDATE_REQUIRED|AUDIT_LOG_REQUIRED)
+
+# Nginx
+NGUSERNAME [a-zA-Z\.\@\-\+_%]+
+NGUSER %{NGUSERNAME}
+NGINXACCESS %{IPORHOST:clientip} %{NGUSER:ident} %{NGUSER:auth} \[%{HTTPDATE:timestamp}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:httpversion}" %{NUMBER:response} (?:%{NUMBER:bytes}|-) (?:"(?:%{URI:referrer}|-)"|%{QS:referrer}) %{QS:agent}
+NGINXERROR %{DATE} %{TIME} %{GREEDYDATA:error} %{POSINT:pid}#%{NUMBER}: %{GREEDYDATA:errormessage}(?:, client: (?<client>%{IP}|%{HOSTNAME}))(?:, server: %{IPORHOST:server})(?:, request: %{QS:request})(?:, host: %{QS:host})
