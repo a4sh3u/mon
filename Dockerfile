@@ -12,7 +12,7 @@ ADD ./elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 ENV ES_HOME /usr/share/elasticsearch
 WORKDIR ${ES_HOME}
 RUN pwd
-RUN gosu elasticsearch bin/elasticsearch-plugin install -Edefault.path.conf=/etc/elasticsearch x-pack
+RUN bin/elasticsearch-plugin install -Edefault.path.conf=/etc/elasticsearch x-pack
 
 WORKDIR ${KIBANA_HOME}
 RUN pwd
