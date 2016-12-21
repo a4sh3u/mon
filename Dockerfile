@@ -1,6 +1,6 @@
 FROM sebp/elk:es500_l500_k500
 
-ENV ES_HOME /opt/elasticsearch
+ENV ES_HOME /usr/share/elasticsearch
 WORKDIR ${ES_HOME}
 RUN pwd
 RUN gosu elasticsearch /opt/elasticsearch/bin/elasticsearch-plugin install x-pack
