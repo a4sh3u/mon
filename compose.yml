@@ -1,5 +1,5 @@
 elk:
-  image: sebp/elk:es500_l500_k500
+  build: .
   container_name: "elk"
   volumes:
     - ./conf.d:/etc/logstash/conf.d
@@ -7,8 +7,6 @@ elk:
     - ./jvm.options:/etc/elasticsearch/jvm.options
     - ./certs/elk_filebeats.crt:/etc/pki/tls/certs/elk_filebeats.crt
     - ./certs/elk_filebeats.key:/etc/pki/tls/private/elk_filebeats.key
-    - ./plugin_install.sh:/tmp/plugin_install.sh
-  command: ["/tmp/plugin_install.sh"]
   ports:
     - "5601:5601"
     - "9200:9200"
