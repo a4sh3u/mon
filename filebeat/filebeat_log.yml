@@ -1,5 +1,5 @@
 output.logstash:
-  hosts: ["localhost:5044"]
+  hosts: ["u1.berlin.ubitricity.com:5044"]
   ssl.certificate_authorities: ["/root/elk_filebeats.crt"]
   ssl.certificate: "/root/elk_filebeats.crt"
   ssl.key: "/root/elk_filebeats.key"
