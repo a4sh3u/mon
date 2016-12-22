@@ -1,0 +1,34 @@
+PUT _xpack/watcher/watch/error_logs_alert
+{
+  "metadata" : {
+    "color" : "red"
+  },
+  "trigger" : {
+    "schedule" : {
+      "interval" : "10s"
+    }
+  },
+  "input" : {
+    "search" : {
+      "request" : {
+        "indices" : "logstash-*",
+        "body" : {
+          "query" : {
+            "match" : { "log_level": "ERROR" }}
+        }
+      }
+    }
+  },
+  "condition" : {
+    "compare" : { "ctx.payload.hits.total" : { "gt" : 5 }}
+  },
+  "actions" : {
+    "send_email" : {
+      "email" : {
+        "to" : "ashutosh.singh@ubitricity.com",
+        "subject" : "Watcher Notification",
+        "body" : "{{ctx.payload.hits.total}} error logs found"
+      }
+    }
+  }
+}
