@@ -1,2 +1,13 @@
 network.host: 0.0.0.0
 xpack.security.enabled: false
+xpack.monitoring.collection.indices: logstash-*
+xpack.notification.email.account:
+    strato_account:
+        profile: strato
+        smtp:
+            auth: true
+            starttls.enable: true
+            host: smtp.strato.de
+            port: 587
+            user: backup@ubitricity.com
+            password: F1v?-@l$m)+isa&>dwti

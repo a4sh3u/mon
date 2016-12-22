@@ -1,7 +1,19 @@
-elk:
-  build: .
-  container_name: "elk"
-  ports:
-    - "5601:5601"
-    - "9200:9200"
-    - "5044:5044"
+version: '2'
+services:
+
+  elk:
+    build: .
+    container_name: "elk"
+    ports:
+      - "5601:5601"
+      - "9200:9200"
+      - "5044:5044"
+
+  filebeat_log:
+    image: prima/filebeat:5
+    container_name: "filebeat_log"
+    volumes:
+      - ./filebeat/filebeat_log.yml:/filebeat.yml
+      - ./certs/elk_filebeats.crt:/root/elk_filebeats.crt
+      - ./certs/elk_filebeats.key:/root/elk_filebeats.key
+      - ./
