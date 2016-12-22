@@ -1,5 +1,6 @@
 FROM sebp/elk:es500_l500_k500
 
+RUN rm -f /etc/logstash/conf.d/*
 # Add custom files
 ADD ./conf.d /etc/logstash/conf.d
 ADD ./patterns /etc/logstash/patterns
