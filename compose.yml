@@ -16,4 +16,5 @@ services:
       - ./filebeat/filebeat_log.yml:/filebeat.yml
       - ./certs/elk_filebeats.crt:/root/elk_filebeats.crt
       - ./certs/elk_filebeats.key:/root/elk_filebeats.key
-      - ./
+      - /tmp/int:/tmp/int
+      - ./log_gen:/tmp/log_gen
