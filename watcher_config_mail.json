@@ -11,7 +11,7 @@ PUT _xpack/watcher/watch/error_mail_alert
   "input" : {
     "search" : {
       "request" : {
-        "indices" : "*watcher-*",
+        "indices" : "logstash-*",
         "body" : {
           "query" : {
             "match" : { "log_level": "ERROR" }}
@@ -20,7 +20,7 @@ PUT _xpack/watcher/watch/error_mail_alert
     }
   },
   "condition" : {
-    "compare" : { "ctx.payload.hits.total" : { "gt" : 5 }}
+    "compare" : { "ctx.payload.hits.total" : { "gt" : 0 }}
   },
   "actions" : {
     "send_email" : {
@@ -28,7 +28,7 @@ PUT _xpack/watcher/watch/error_mail_alert
         "to" : "ashutosh.singh@ubitricity.com",
         "subject" : "Watcher Notification",
         "body" : {
-                    "html" : "<html><body>{{ctx.payload.hits.hits.0._source.msg}}</body></html>"
+                    "html" : "<html><body>{{ctx.payload.hits.hits.0._source.err_msg}}</body></html>"
                 }
       }
     }
