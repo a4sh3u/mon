@@ -2,3 +2,15 @@
 GET .watches/_search
 #Delete alerts
 DELETE _watcher/watch/error_logs_alert
+
+
+
+GET logstash-2016.12.23/_search
+{
+  "size" : 0,
+  "aggs" : {
+    "all_interests" : {
+      "terms": { "field" : "log_level" }
+    }
+  }
+}

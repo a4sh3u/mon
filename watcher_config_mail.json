@@ -14,7 +14,14 @@ PUT _xpack/watcher/watch/error_mail_alert
         "indices" : "logstash-*",
         "body" : {
           "query" : {
-            "match" : { "log_level": "ERROR" }}
+            "match" : { "log_level": "ERROR" }},
+          "aggs" : {
+            "full_msg" : {
+              "terms" : {
+                "field" : "application"
+              }
+            }
+          }
         }
       }
     }
