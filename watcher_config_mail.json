@@ -1,4 +1,4 @@
-PUT _xpack/watcher/watch/error_logs_alert
+PUT _xpack/watcher/watch/error_mail_alert
 {
   "metadata" : {
     "color" : "red"
@@ -27,7 +27,9 @@ PUT _xpack/watcher/watch/error_logs_alert
       "email" : {
         "to" : "ashutosh.singh@ubitricity.com",
         "subject" : "Watcher Notification",
-        "body" : "{{ctx.payload.hits.total}} error logs found"
+        "body" : {
+                    "html" : "<html><body>{{ctx.payload.hits.hits.0._source.request.msg}}</body></html>"
+                }
       }
     }
   }

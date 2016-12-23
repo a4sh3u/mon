@@ -1,0 +1,4 @@
+# Search all the alerts
+GET .watches/_search
+#Delete alerts
+DELETE _watcher/watch/error_logs_alert
