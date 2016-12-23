@@ -11,7 +11,7 @@ PUT _xpack/watcher/watch/error_mail_alert
   "input" : {
     "search" : {
       "request" : {
-        "indices" : "logstash-*",
+        "indices" : "*watcher-*",
         "body" : {
           "query" : {
             "match" : { "log_level": "ERROR" }}
@@ -28,7 +28,7 @@ PUT _xpack/watcher/watch/error_mail_alert
         "to" : "ashutosh.singh@ubitricity.com",
         "subject" : "Watcher Notification",
         "body" : {
-                    "html" : "<html><body>{{ctx.payload.hits.hits.0._source.request.msg}}</body></html>"
+                    "html" : "<html><body>{{ctx.payload.hits.hits.0._source.msg}}</body></html>"
                 }
       }
     }
