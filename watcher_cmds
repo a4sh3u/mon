@@ -300,3 +300,8 @@ GET logstash-*/_mapping
     }
   }
 }
+
+
+##################################
+ctx.payload.aggregations.full_msg.buckets.0.ag_msg.buckets.0.key
+{{#ctx.payload.aggregations.full_msg.buckets}} {{key}}<br>{{#ag_msg.buckets}}{{key}}<br> {{/ag_msg.buckets}} <br><br>{{/ctx.payload.aggregations.full_msg.buckets}}

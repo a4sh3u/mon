@@ -43,7 +43,7 @@ PUT _xpack/watcher/watch/error_mail_alert
         "to" : "ashutosh.singh@ubitricity.com",
         "subject" : "Watcher Notification",
         "body" : {
-                    "html" : "<html><body>{{ctx.payload.aggregations.full_msg.buckets.0.ag_msg.buckets.0.key}}</body></html>"
+                    "html" : "<html><body>{{#ctx.payload.aggregations.full_msg.buckets}} {{key}}<br>{{#ag_msg.buckets}}{{key}}<br> {{/ag_msg.buckets}} <br><br>{{/ctx.payload.aggregations.full_msg.buckets}}</body></html>"
                 }
       }
     }
