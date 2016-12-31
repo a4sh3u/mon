@@ -14,3 +14,289 @@ GET logstash-2016.12.23/_search
     }
   }
 }
+
+###################################
+GET logstash-*/_mapping
+
+-------
+{
+  "logstash-2016.12.31": {
+    "mappings": {
+      "log": {
+        "_all": {
+          "enabled": true,
+          "norms": false
+        },
+        "dynamic_templates": [
+          {
+            "message_field": {
+              "path_match": "message",
+              "match_mapping_type": "string",
+              "mapping": {
+                "norms": false,
+                "type": "text"
+              }
+            }
+          },
+          {
+            "string_fields": {
+              "match": "*",
+              "match_mapping_type": "string",
+              "mapping": {
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                },
+                "norms": false,
+                "type": "text"
+              }
+            }
+          }
+        ],
+        "properties": {
+          "@timestamp": {
+            "type": "date",
+            "include_in_all": false
+          },
+          "@uuid": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "@version": {
+            "type": "keyword",
+            "include_in_all": false
+          },
+          "application": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "beat": {
+            "properties": {
+              "hostname": {
+                "type": "text",
+                "norms": false,
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "name": {
+                "type": "text",
+                "norms": false,
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "version": {
+                "type": "text",
+                "norms": false,
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          },
+          "err_msg": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "fields": {
+            "properties": {
+              "app": {
+                "type": "text",
+                "norms": false,
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "log": {
+                "type": "text",
+                "norms": false,
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          },
+          "fingerprint": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "geoip": {
+            "dynamic": "true",
+            "properties": {
+              "ip": {
+                "type": "ip"
+              },
+              "latitude": {
+                "type": "half_float"
+              },
+              "location": {
+                "type": "geo_point"
+              },
+              "longitude": {
+                "type": "half_float"
+              }
+            }
+          },
+          "host": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "hostname": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "input_type": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "log_level": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "offset": {
+            "type": "long"
+          },
+          "source": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "tags": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "type": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "_default_": {
+        "_all": {
+          "enabled": true,
+          "norms": false
+        },
+        "dynamic_templates": [
+          {
+            "message_field": {
+              "path_match": "message",
+              "match_mapping_type": "string",
+              "mapping": {
+                "norms": false,
+                "type": "text"
+              }
+            }
+          },
+          {
+            "string_fields": {
+              "match": "*",
+              "match_mapping_type": "string",
+              "mapping": {
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                },
+                "norms": false,
+                "type": "text"
+              }
+            }
+          }
+        ],
+        "properties": {
+          "@timestamp": {
+            "type": "date",
+            "include_in_all": false
+          },
+          "@version": {
+            "type": "keyword",
+            "include_in_all": false
+          },
+          "geoip": {
+            "dynamic": "true",
+            "properties": {
+              "ip": {
+                "type": "ip"
+              },
+              "latitude": {
+                "type": "half_float"
+              },
+              "location": {
+                "type": "geo_point"
+              },
+              "longitude": {
+                "type": "half_float"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

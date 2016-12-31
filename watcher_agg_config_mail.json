@@ -18,7 +18,15 @@ PUT _xpack/watcher/watch/error_mail_alert
           "aggs" : {
             "full_msg" : {
               "terms" : {
-                "field" : "application"
+                "field" : "application.keyword"
+              },
+              "aggs": {
+                "ag_msg": {
+                  "terms": {
+                    "field": "err_msg.keyword",
+                    "size": 10
+                  }
+                }
               }
             }
           }
@@ -35,7 +43,7 @@ PUT _xpack/watcher/watch/error_mail_alert
         "to" : "ashutosh.singh@ubitricity.com",
         "subject" : "Watcher Notification",
         "body" : {
-                    "html" : "<html><body>{{ctx.payload.hits.hits.0._source.err_msg}}</body></html>"
+                    "html" : "<html><body>{{ctx.payload.aggregations.full_msg.buckets.0.ag_msg.buckets.0.key}}</body></html>"
                 }
       }
     }
