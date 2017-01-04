@@ -1,24 +1,27 @@
 PUT _xpack/watcher/watch/error_mail_alert
 {
-  "metadata" : {
-    "color" : "red"
+  "metadata": {
+    "color": "red"
   },
-  "trigger" : {
-    "schedule" : {
-      "interval" : "10s"
+  "trigger": {
+    "schedule": {
+      "interval": "3h"
     }
   },
-  "input" : {
-    "search" : {
-      "request" : {
-        "indices" : "logstash-*",
-        "body" : {
-          "query" : {
-            "match" : { "log_level": "ERROR" }},
-          "aggs" : {
-            "full_msg" : {
-              "terms" : {
-                "field" : "application.keyword"
+  "input": {
+    "search": {
+      "request": {
+        "indices": "logstash-*",
+        "body": {
+          "query": {
+            "match": {
+              "log_level": "ERROR"
+            }
+          },
+          "aggs": {
+            "full_msg": {
+              "terms": {
+                "field": "application.keyword"
               },
               "aggs": {
                 "ag_msg": {
@@ -34,17 +37,21 @@ PUT _xpack/watcher/watch/error_mail_alert
       }
     }
   },
-  "condition" : {
-    "compare" : { "ctx.payload.hits.total" : { "gt" : 0 }}
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
   },
-  "actions" : {
-    "send_email" : {
-      "email" : {
-        "to" : "ashutosh.singh@ubitricity.com",
-        "subject" : "Watcher Notification",
-        "body" : {
-                    "html" : "<html><body>{{#ctx.payload.aggregations.full_msg.buckets}} {{key}}<br>{{#ag_msg.buckets}}{{key}}<br> {{/ag_msg.buckets}} <br><br>{{/ctx.payload.aggregations.full_msg.buckets}}</body></html>"
-                }
+  "actions": {
+    "send_email": {
+      "email": {
+        "to": "ashutosh.singh@ubitricity.com",
+        "subject": "Watcher Notification",
+        "body": {
+          "html": "<html><body>{{#ctx.payload.aggregations.full_msg.buckets}} {{key}}<br><br><br>{{#ag_msg.buckets}}{{key}}<br><br> {{/ag_msg.buckets}} <br><br><br><br>{{/ctx.payload.aggregations.full_msg.buckets}}</body></html>"
+        }
       }
     }
   }
